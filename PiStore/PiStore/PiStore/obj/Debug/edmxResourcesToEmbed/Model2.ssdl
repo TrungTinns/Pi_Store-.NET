@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PiStoreDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="BillID" />
+    </Key>
+    <Property Name="BillID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="ClientID" Type="int" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="BillDate" Type="date" Nullable="false" />
+    <Property Name="TotalPrice" Type="float" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ClientEmail" Type="varchar" MaxLength="100" />
+    <Property Name="ClientPhone" Type="varchar" MaxLength="10" />
+    <Property Name="ClientAddress" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="EmployeeEmail" Type="varchar" MaxLength="100" />
+    <Property Name="EmployeePhone" Type="varchar" MaxLength="10" />
+    <Property Name="EmployeeAddress" Type="varchar" MaxLength="255" />
+    <Property Name="EmployeeSalary" Type="float" />
+    <Property Name="HireDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderItem">
+    <Key>
+      <PropertyRef Name="OrderItemID" />
+    </Key>
+    <Property Name="OrderItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="ProductID" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientID" Type="int" Nullable="false" />
+    <Property Name="EmployeeID" Type="int" Nullable="false" />
+    <Property Name="OrderDate" Type="date" Nullable="false" />
+    <Property Name="TotalPrice" Type="float" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ProductDescription" Type="varchar" MaxLength="255" />
+    <Property Name="ProductPrice" Type="float" />
+    <Property Name="Quantity" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PiStoreDB.dbo.View_Client' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Client">
+    <Key>
+      <PropertyRef Name="ClientID" />
+      <PropertyRef Name="ClientName" />
+    </Key>
+    <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ClientEmail" Type="varchar" MaxLength="100" />
+    <Property Name="ClientPhone" Type="varchar" MaxLength="10" />
+    <Property Name="ClientAddress" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PiStoreDB.dbo.View_Employee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="EmployeeName" />
+      <PropertyRef Name="HireDate" />
+    </Key>
+    <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployeeName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="EmployeeEmail" Type="varchar" MaxLength="100" />
+    <Property Name="EmployeePhone" Type="varchar" MaxLength="10" />
+    <Property Name="EmployeeAddress" Type="varchar" MaxLength="255" />
+    <Property Name="EmployeeSalary" Type="float" />
+    <Property Name="HireDate" Type="date" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PiStoreDB.dbo.View_Orders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Orders">
+    <Key>
+      <PropertyRef Name="OrderID" />
+      <PropertyRef Name="ProductName" />
+      <PropertyRef Name="ClientName" />
+      <PropertyRef Name="OrderDate" />
+    </Key>
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="ProductName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="ClientName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="OrderDate" Type="date" Nullable="false" />
+    <Property Name="TotalPrice" Type="float" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'PiStoreDB.dbo.View_Product' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="View_Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+      <PropertyRef Name="ProductName" />
+    </Key>
+    <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ProductDescription" Type="varchar" MaxLength="255" />
+    <Property Name="ProductPrice" Type="float" />
+    <Property Name="Quantity" Type="int" />
+  </EntityType>
+  <Association Name="FK_Bill_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bill_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bill_Order">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItem_Orders">
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+    <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItem_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_AddClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClientID" Type="int" Mode="In" />
+    <Parameter Name="ClientName" Type="varchar" Mode="In" />
+    <Parameter Name="ClientEmail" Type="varchar" Mode="In" />
+    <Parameter Name="ClientPhone" Type="varchar" Mode="In" />
+    <Parameter Name="ClientAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_AddEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployeeID" Type="int" Mode="In" />
+    <Parameter Name="EmployeeName" Type="varchar" Mode="In" />
+    <Parameter Name="EmployeeEmail" Type="varchar" Mode="In" />
+    <Parameter Name="EmployeePhone" Type="varchar" Mode="In" />
+    <Parameter Name="EmployeeAddress" Type="varchar" Mode="In" />
+    <Parameter Name="EmployeeSalary" Type="float" Mode="In" />
+    <Parameter Name="HireDate" Type="date" Mode="In" />
+  </Function>
+  <Function Name="sp_AddProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductID" Type="int" Mode="In" />
+    <Parameter Name="ProductName" Type="varchar" Mode="In" />
+    <Parameter Name="ProductDescription" Type="varchar" Mode="In" />
+    <Parameter Name="ProductPrice" Type="float" Mode="In" />
+    <Parameter Name="Quantity" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_DeleteClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClientID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_DeleteEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployeeID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_DeleteProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_UpdateClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ClientID" Type="int" Mode="In" />
+    <Parameter Name="ClientName" Type="varchar" Mode="In" />
+    <Parameter Name="ClientEmail" Type="varchar" Mode="In" />
+    <Parameter Name="ClientPhone" Type="varchar" Mode="In" />
+    <Parameter Name="ClientAddress" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_UpdateEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmployeeID" Type="int" Mode="In" />
+    <Parameter Name="EmployeeName" Type="varchar" Mode="In" />
+    <Parameter Name="EmployeeEmail" Type="varchar" Mode="In" />
+    <Parameter Name="EmployeePhone" Type="varchar" Mode="In" />
+    <Parameter Name="EmployeeAddress" Type="varchar" Mode="In" />
+    <Parameter Name="EmployeeSalary" Type="float" Mode="In" />
+    <Parameter Name="HireDate" Type="date" Mode="In" />
+  </Function>
+  <Function Name="sp_UpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ProductID" Type="int" Mode="In" />
+    <Parameter Name="ProductName" Type="varchar" Mode="In" />
+    <Parameter Name="ProductDescription" Type="varchar" Mode="In" />
+    <Parameter Name="ProductPrice" Type="float" Mode="In" />
+    <Parameter Name="Quantity" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="nvarchar" Mode="In" />
+    <Parameter Name="password" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="PiStoreDBModel1StoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderItem" EntityType="Self.OrderItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="View_Client" EntityType="Self.View_Client" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [View_Client].[ClientID] AS [ClientID], 
+    [View_Client].[ClientName] AS [ClientName], 
+    [View_Client].[ClientEmail] AS [ClientEmail], 
+    [View_Client].[ClientPhone] AS [ClientPhone], 
+    [View_Client].[ClientAddress] AS [ClientAddress]
+    FROM [dbo].[View_Client] AS [View_Client]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Employee" EntityType="Self.View_Employee" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [View_Employee].[EmployeeID] AS [EmployeeID], 
+    [View_Employee].[EmployeeName] AS [EmployeeName], 
+    [View_Employee].[EmployeeEmail] AS [EmployeeEmail], 
+    [View_Employee].[EmployeePhone] AS [EmployeePhone], 
+    [View_Employee].[EmployeeAddress] AS [EmployeeAddress], 
+    [View_Employee].[EmployeeSalary] AS [EmployeeSalary], 
+    [View_Employee].[HireDate] AS [HireDate]
+    FROM [dbo].[View_Employee] AS [View_Employee]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Orders" EntityType="Self.View_Orders" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [View_Orders].[OrderID] AS [OrderID], 
+    [View_Orders].[ProductName] AS [ProductName], 
+    [View_Orders].[Quantity] AS [Quantity], 
+    [View_Orders].[ClientName] AS [ClientName], 
+    [View_Orders].[OrderDate] AS [OrderDate], 
+    [View_Orders].[TotalPrice] AS [TotalPrice]
+    FROM [dbo].[View_Orders] AS [View_Orders]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="View_Product" EntityType="Self.View_Product" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [View_Product].[ProductID] AS [ProductID], 
+    [View_Product].[ProductName] AS [ProductName], 
+    [View_Product].[ProductDescription] AS [ProductDescription], 
+    [View_Product].[ProductPrice] AS [ProductPrice], 
+    [View_Product].[Quantity] AS [Quantity]
+    FROM [dbo].[View_Product] AS [View_Product]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Bill_Client" Association="Self.FK_Bill_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Bill" EntitySet="Bill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bill_Employee" Association="Self.FK_Bill_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Bill" EntitySet="Bill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bill_Order" Association="Self.FK_Bill_Order">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Bill" EntitySet="Bill" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Client" Association="Self.FK_Order_Client">
+      <End Role="Client" EntitySet="Client" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItem_Orders" Association="Self.FK_OrderItem_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderItem" EntitySet="OrderItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItem_Product" Association="Self.FK_OrderItem_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="OrderItem" EntitySet="OrderItem" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

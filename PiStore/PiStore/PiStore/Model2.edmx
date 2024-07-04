@@ -1,0 +1,838 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PiStoreDBModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="BillDate" Type="date" Nullable="false" />
+          <Property Name="TotalPrice" Type="float" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClientEmail" Type="varchar" MaxLength="100" />
+          <Property Name="ClientPhone" Type="varchar" MaxLength="10" />
+          <Property Name="ClientAddress" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmployeeEmail" Type="varchar" MaxLength="100" />
+          <Property Name="EmployeePhone" Type="varchar" MaxLength="10" />
+          <Property Name="EmployeeAddress" Type="varchar" MaxLength="255" />
+          <Property Name="EmployeeSalary" Type="float" />
+          <Property Name="HireDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="OrderItemID" />
+          </Key>
+          <Property Name="OrderItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="TotalPrice" Type="float" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProductDescription" Type="varchar" MaxLength="255" />
+          <Property Name="ProductPrice" Type="float" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PiStoreDB.dbo.View_Client' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+            <PropertyRef Name="ClientName" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClientEmail" Type="varchar" MaxLength="100" />
+          <Property Name="ClientPhone" Type="varchar" MaxLength="10" />
+          <Property Name="ClientAddress" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PiStoreDB.dbo.View_Employee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="EmployeeName" />
+            <PropertyRef Name="HireDate" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmployeeEmail" Type="varchar" MaxLength="100" />
+          <Property Name="EmployeePhone" Type="varchar" MaxLength="10" />
+          <Property Name="EmployeeAddress" Type="varchar" MaxLength="255" />
+          <Property Name="EmployeeSalary" Type="float" />
+          <Property Name="HireDate" Type="date" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PiStoreDB.dbo.View_Orders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="ProductName" />
+            <PropertyRef Name="ClientName" />
+            <PropertyRef Name="OrderDate" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ClientName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="OrderDate" Type="date" Nullable="false" />
+          <Property Name="TotalPrice" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PiStoreDB.dbo.View_Product' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="ProductName" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProductDescription" Type="varchar" MaxLength="255" />
+          <Property Name="ProductPrice" Type="float" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <Association Name="FK_Bill_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Order">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_AddClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClientID" Type="int" Mode="In" />
+          <Parameter Name="ClientName" Type="varchar" Mode="In" />
+          <Parameter Name="ClientEmail" Type="varchar" Mode="In" />
+          <Parameter Name="ClientPhone" Type="varchar" Mode="In" />
+          <Parameter Name="ClientAddress" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_AddEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployeeID" Type="int" Mode="In" />
+          <Parameter Name="EmployeeName" Type="varchar" Mode="In" />
+          <Parameter Name="EmployeeEmail" Type="varchar" Mode="In" />
+          <Parameter Name="EmployeePhone" Type="varchar" Mode="In" />
+          <Parameter Name="EmployeeAddress" Type="varchar" Mode="In" />
+          <Parameter Name="EmployeeSalary" Type="float" Mode="In" />
+          <Parameter Name="HireDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_AddProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductID" Type="int" Mode="In" />
+          <Parameter Name="ProductName" Type="varchar" Mode="In" />
+          <Parameter Name="ProductDescription" Type="varchar" Mode="In" />
+          <Parameter Name="ProductPrice" Type="float" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClientID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployeeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DeleteProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateClient" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ClientID" Type="int" Mode="In" />
+          <Parameter Name="ClientName" Type="varchar" Mode="In" />
+          <Parameter Name="ClientEmail" Type="varchar" Mode="In" />
+          <Parameter Name="ClientPhone" Type="varchar" Mode="In" />
+          <Parameter Name="ClientAddress" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EmployeeID" Type="int" Mode="In" />
+          <Parameter Name="EmployeeName" Type="varchar" Mode="In" />
+          <Parameter Name="EmployeeEmail" Type="varchar" Mode="In" />
+          <Parameter Name="EmployeePhone" Type="varchar" Mode="In" />
+          <Parameter Name="EmployeeAddress" Type="varchar" Mode="In" />
+          <Parameter Name="EmployeeSalary" Type="float" Mode="In" />
+          <Parameter Name="HireDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_UpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductID" Type="int" Mode="In" />
+          <Parameter Name="ProductName" Type="varchar" Mode="In" />
+          <Parameter Name="ProductDescription" Type="varchar" Mode="In" />
+          <Parameter Name="ProductPrice" Type="float" Mode="In" />
+          <Parameter Name="Quantity" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spAccount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="PiStoreDBModel1StoreContainer">
+          <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderItem" EntityType="Self.OrderItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_Client" EntityType="Self.View_Client" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Client].[ClientID] AS [ClientID], 
+    [View_Client].[ClientName] AS [ClientName], 
+    [View_Client].[ClientEmail] AS [ClientEmail], 
+    [View_Client].[ClientPhone] AS [ClientPhone], 
+    [View_Client].[ClientAddress] AS [ClientAddress]
+    FROM [dbo].[View_Client] AS [View_Client]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_Employee" EntityType="Self.View_Employee" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Employee].[EmployeeID] AS [EmployeeID], 
+    [View_Employee].[EmployeeName] AS [EmployeeName], 
+    [View_Employee].[EmployeeEmail] AS [EmployeeEmail], 
+    [View_Employee].[EmployeePhone] AS [EmployeePhone], 
+    [View_Employee].[EmployeeAddress] AS [EmployeeAddress], 
+    [View_Employee].[EmployeeSalary] AS [EmployeeSalary], 
+    [View_Employee].[HireDate] AS [HireDate]
+    FROM [dbo].[View_Employee] AS [View_Employee]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_Orders" EntityType="Self.View_Orders" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Orders].[OrderID] AS [OrderID], 
+    [View_Orders].[ProductName] AS [ProductName], 
+    [View_Orders].[Quantity] AS [Quantity], 
+    [View_Orders].[ClientName] AS [ClientName], 
+    [View_Orders].[OrderDate] AS [OrderDate], 
+    [View_Orders].[TotalPrice] AS [TotalPrice]
+    FROM [dbo].[View_Orders] AS [View_Orders]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="View_Product" EntityType="Self.View_Product" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_Product].[ProductID] AS [ProductID], 
+    [View_Product].[ProductName] AS [ProductName], 
+    [View_Product].[ProductDescription] AS [ProductDescription], 
+    [View_Product].[ProductPrice] AS [ProductPrice], 
+    [View_Product].[Quantity] AS [Quantity]
+    FROM [dbo].[View_Product] AS [View_Product]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Bill_Client" Association="Self.FK_Bill_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Employee" Association="Self.FK_Bill_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Order" Association="Self.FK_Bill_Order">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Bill" EntitySet="Bill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Client" Association="Self.FK_Order_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Orders" Association="Self.FK_OrderItem_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Product" Association="Self.FK_OrderItem_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OrderItem" EntitySet="OrderItem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PiStoreDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="BillID" />
+          </Key>
+          <Property Name="BillID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="BillDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TotalPrice" Type="Double" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Bill_Client" FromRole="Bill" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Bill_Employee" FromRole="Bill" ToRole="Employee" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_Bill_Order" FromRole="Bill" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClientPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ClientAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Client" FromRole="Client" ToRole="Bill" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Client" FromRole="Client" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeePhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeSalary" Type="Double" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Employee" FromRole="Employee" ToRole="Bill" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Employee" FromRole="Employee" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="OrderItem">
+          <Key>
+            <PropertyRef Name="OrderItemID" />
+          </Key>
+          <Property Name="OrderItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_OrderItem_Orders" FromRole="OrderItem" ToRole="Orders" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_OrderItem_Product" FromRole="OrderItem" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TotalPrice" Type="Double" />
+          <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Order" FromRole="Orders" ToRole="Bill" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Order_Client" FromRole="Orders" ToRole="Client" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employee" FromRole="Orders" ToRole="Employee" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Orders" FromRole="Orders" ToRole="OrderItem" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ProductPrice" Type="Double" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Product" FromRole="Product" ToRole="OrderItem" />
+        </EntityType>
+        <EntityType Name="View_Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+            <PropertyRef Name="ClientName" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClientPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ClientAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="View_Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="EmployeeName" />
+            <PropertyRef Name="HireDate" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeePhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeSalary" Type="Double" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="View_Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="ProductName" />
+            <PropertyRef Name="ClientName" />
+            <PropertyRef Name="OrderDate" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TotalPrice" Type="Double" />
+        </EntityType>
+        <EntityType Name="View_Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+            <PropertyRef Name="ProductName" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProductDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ProductPrice" Type="Double" />
+          <Property Name="Quantity" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Bill_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Order">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="Bill">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Orders">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderItem_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderItem">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PiStoreDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="Self.Account" />
+          <EntitySet Name="Bills" EntityType="Self.Bill" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="View_Client" EntityType="Self.View_Client" />
+          <EntitySet Name="View_Employee" EntityType="Self.View_Employee" />
+          <EntitySet Name="View_Orders" EntityType="Self.View_Orders" />
+          <EntitySet Name="View_Product" EntityType="Self.View_Product" />
+          <AssociationSet Name="FK_Bill_Client" Association="Self.FK_Bill_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Employee" Association="Self.FK_Bill_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Order" Association="Self.FK_Bill_Order">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Bill" EntitySet="Bills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Client" Association="Self.FK_Order_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
+            <End Role="Employee" EntitySet="Employees" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Orders" Association="Self.FK_OrderItem_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Product" Association="Self.FK_OrderItem_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <FunctionImport Name="sp_AddClient" ReturnType="Collection(Decimal)">
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="ClientName" Mode="In" Type="String" />
+            <Parameter Name="ClientEmail" Mode="In" Type="String" />
+            <Parameter Name="ClientPhone" Mode="In" Type="String" />
+            <Parameter Name="ClientAddress" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AddEmployee" ReturnType="Collection(Decimal)">
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeName" Mode="In" Type="String" />
+            <Parameter Name="EmployeeEmail" Mode="In" Type="String" />
+            <Parameter Name="EmployeePhone" Mode="In" Type="String" />
+            <Parameter Name="EmployeeAddress" Mode="In" Type="String" />
+            <Parameter Name="EmployeeSalary" Mode="In" Type="Double" />
+            <Parameter Name="HireDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AddProduct" ReturnType="Collection(Decimal)">
+            <Parameter Name="ProductID" Mode="In" Type="Int32" />
+            <Parameter Name="ProductName" Mode="In" Type="String" />
+            <Parameter Name="ProductDescription" Mode="In" Type="String" />
+            <Parameter Name="ProductPrice" Mode="In" Type="Double" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DeleteClient">
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DeleteEmployee">
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DeleteProduct">
+            <Parameter Name="ProductID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateClient">
+            <Parameter Name="ClientID" Mode="In" Type="Int32" />
+            <Parameter Name="ClientName" Mode="In" Type="String" />
+            <Parameter Name="ClientEmail" Mode="In" Type="String" />
+            <Parameter Name="ClientPhone" Mode="In" Type="String" />
+            <Parameter Name="ClientAddress" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateEmployee">
+            <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+            <Parameter Name="EmployeeName" Mode="In" Type="String" />
+            <Parameter Name="EmployeeEmail" Mode="In" Type="String" />
+            <Parameter Name="EmployeePhone" Mode="In" Type="String" />
+            <Parameter Name="EmployeeAddress" Mode="In" Type="String" />
+            <Parameter Name="EmployeeSalary" Mode="In" Type="Double" />
+            <Parameter Name="HireDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_UpdateProduct">
+            <Parameter Name="ProductID" Mode="In" Type="Int32" />
+            <Parameter Name="ProductName" Mode="In" Type="String" />
+            <Parameter Name="ProductDescription" Mode="In" Type="String" />
+            <Parameter Name="ProductPrice" Mode="In" Type="Double" />
+            <Parameter Name="Quantity" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spAccount" ReturnType="Collection(Int32)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PiStoreDBModel1StoreContainer" CdmEntityContainer="PiStoreDBEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="PiStoreDBModel1.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="PiStoreDBModel1.Bill">
+              <MappingFragment StoreEntitySet="Bill">
+                <ScalarProperty Name="BillID" ColumnName="BillID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="PiStoreDBModel1.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
+                <ScalarProperty Name="ClientPhone" ColumnName="ClientPhone" />
+                <ScalarProperty Name="ClientAddress" ColumnName="ClientAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="PiStoreDBModel1.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+                <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
+                <ScalarProperty Name="EmployeeAddress" ColumnName="EmployeeAddress" />
+                <ScalarProperty Name="EmployeeSalary" ColumnName="EmployeeSalary" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderItems">
+            <EntityTypeMapping TypeName="PiStoreDBModel1.OrderItem">
+              <MappingFragment StoreEntitySet="OrderItem">
+                <ScalarProperty Name="OrderItemID" ColumnName="OrderItemID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="PiStoreDBModel1.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="PiStoreDBModel1.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Client">
+            <EntityTypeMapping TypeName="PiStoreDBModel1.View_Client">
+              <MappingFragment StoreEntitySet="View_Client">
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
+                <ScalarProperty Name="ClientPhone" ColumnName="ClientPhone" />
+                <ScalarProperty Name="ClientAddress" ColumnName="ClientAddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Employee">
+            <EntityTypeMapping TypeName="PiStoreDBModel1.View_Employee">
+              <MappingFragment StoreEntitySet="View_Employee">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+                <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
+                <ScalarProperty Name="EmployeeAddress" ColumnName="EmployeeAddress" />
+                <ScalarProperty Name="EmployeeSalary" ColumnName="EmployeeSalary" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Orders">
+            <EntityTypeMapping TypeName="PiStoreDBModel1.View_Orders">
+              <MappingFragment StoreEntitySet="View_Orders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_Product">
+            <EntityTypeMapping TypeName="PiStoreDBModel1.View_Product">
+              <MappingFragment StoreEntitySet="View_Product">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_AddClient" FunctionName="PiStoreDBModel1.Store.sp_AddClient" />
+          <FunctionImportMapping FunctionImportName="sp_AddEmployee" FunctionName="PiStoreDBModel1.Store.sp_AddEmployee" />
+          <FunctionImportMapping FunctionImportName="sp_AddProduct" FunctionName="PiStoreDBModel1.Store.sp_AddProduct" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteClient" FunctionName="PiStoreDBModel1.Store.sp_DeleteClient" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteEmployee" FunctionName="PiStoreDBModel1.Store.sp_DeleteEmployee" />
+          <FunctionImportMapping FunctionImportName="sp_DeleteProduct" FunctionName="PiStoreDBModel1.Store.sp_DeleteProduct" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateClient" FunctionName="PiStoreDBModel1.Store.sp_UpdateClient" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateEmployee" FunctionName="PiStoreDBModel1.Store.sp_UpdateEmployee" />
+          <FunctionImportMapping FunctionImportName="sp_UpdateProduct" FunctionName="PiStoreDBModel1.Store.sp_UpdateProduct" />
+          <FunctionImportMapping FunctionImportName="spAccount" FunctionName="PiStoreDBModel1.Store.spAccount" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

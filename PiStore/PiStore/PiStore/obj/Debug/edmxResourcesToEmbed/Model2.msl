@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PiStoreDBModel1StoreContainer" CdmEntityContainer="PiStoreDBEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="PiStoreDBModel1.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bills">
+      <EntityTypeMapping TypeName="PiStoreDBModel1.Bill">
+        <MappingFragment StoreEntitySet="Bill">
+          <ScalarProperty Name="BillID" ColumnName="BillID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="PiStoreDBModel1.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
+          <ScalarProperty Name="ClientPhone" ColumnName="ClientPhone" />
+          <ScalarProperty Name="ClientAddress" ColumnName="ClientAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="PiStoreDBModel1.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+          <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
+          <ScalarProperty Name="EmployeeAddress" ColumnName="EmployeeAddress" />
+          <ScalarProperty Name="EmployeeSalary" ColumnName="EmployeeSalary" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderItems">
+      <EntityTypeMapping TypeName="PiStoreDBModel1.OrderItem">
+        <MappingFragment StoreEntitySet="OrderItem">
+          <ScalarProperty Name="OrderItemID" ColumnName="OrderItemID" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="PiStoreDBModel1.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="PiStoreDBModel1.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_Client">
+      <EntityTypeMapping TypeName="PiStoreDBModel1.View_Client">
+        <MappingFragment StoreEntitySet="View_Client">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="ClientEmail" ColumnName="ClientEmail" />
+          <ScalarProperty Name="ClientPhone" ColumnName="ClientPhone" />
+          <ScalarProperty Name="ClientAddress" ColumnName="ClientAddress" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_Employee">
+      <EntityTypeMapping TypeName="PiStoreDBModel1.View_Employee">
+        <MappingFragment StoreEntitySet="View_Employee">
+          <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+          <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+          <ScalarProperty Name="EmployeeEmail" ColumnName="EmployeeEmail" />
+          <ScalarProperty Name="EmployeePhone" ColumnName="EmployeePhone" />
+          <ScalarProperty Name="EmployeeAddress" ColumnName="EmployeeAddress" />
+          <ScalarProperty Name="EmployeeSalary" ColumnName="EmployeeSalary" />
+          <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_Orders">
+      <EntityTypeMapping TypeName="PiStoreDBModel1.View_Orders">
+        <MappingFragment StoreEntitySet="View_Orders">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_Product">
+      <EntityTypeMapping TypeName="PiStoreDBModel1.View_Product">
+        <MappingFragment StoreEntitySet="View_Product">
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+          <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_AddClient" FunctionName="PiStoreDBModel1.Store.sp_AddClient" />
+    <FunctionImportMapping FunctionImportName="sp_AddEmployee" FunctionName="PiStoreDBModel1.Store.sp_AddEmployee" />
+    <FunctionImportMapping FunctionImportName="sp_AddProduct" FunctionName="PiStoreDBModel1.Store.sp_AddProduct" />
+    <FunctionImportMapping FunctionImportName="sp_DeleteClient" FunctionName="PiStoreDBModel1.Store.sp_DeleteClient" />
+    <FunctionImportMapping FunctionImportName="sp_DeleteEmployee" FunctionName="PiStoreDBModel1.Store.sp_DeleteEmployee" />
+    <FunctionImportMapping FunctionImportName="sp_DeleteProduct" FunctionName="PiStoreDBModel1.Store.sp_DeleteProduct" />
+    <FunctionImportMapping FunctionImportName="sp_UpdateClient" FunctionName="PiStoreDBModel1.Store.sp_UpdateClient" />
+    <FunctionImportMapping FunctionImportName="sp_UpdateEmployee" FunctionName="PiStoreDBModel1.Store.sp_UpdateEmployee" />
+    <FunctionImportMapping FunctionImportName="sp_UpdateProduct" FunctionName="PiStoreDBModel1.Store.sp_UpdateProduct" />
+    <FunctionImportMapping FunctionImportName="spAccount" FunctionName="PiStoreDBModel1.Store.spAccount" />
+  </EntityContainerMapping>
+</Mapping>

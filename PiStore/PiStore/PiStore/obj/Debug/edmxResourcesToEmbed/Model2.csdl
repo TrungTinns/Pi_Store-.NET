@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PiStoreDBModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="BillID" />
+    </Key>
+    <Property Name="BillID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="ClientID" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+    <Property Name="BillDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TotalPrice" Type="Double" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Bill_Client" FromRole="Bill" ToRole="Client" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Bill_Employee" FromRole="Bill" ToRole="Employee" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_Bill_Order" FromRole="Bill" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ClientEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ClientPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ClientAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Client" FromRole="Client" ToRole="Bill" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Client" FromRole="Client" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+    </Key>
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeeEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeePhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeSalary" Type="Double" />
+    <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Employee" FromRole="Employee" ToRole="Bill" />
+    <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Employee" FromRole="Employee" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="OrderItem">
+    <Key>
+      <PropertyRef Name="OrderItemID" />
+    </Key>
+    <Property Name="OrderItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_OrderItem_Orders" FromRole="OrderItem" ToRole="Orders" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_OrderItem_Product" FromRole="OrderItem" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientID" Type="Int32" Nullable="false" />
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TotalPrice" Type="Double" />
+    <NavigationProperty Name="Bills" Relationship="Self.FK_Bill_Order" FromRole="Orders" ToRole="Bill" />
+    <NavigationProperty Name="Client" Relationship="Self.FK_Order_Client" FromRole="Orders" ToRole="Client" />
+    <NavigationProperty Name="Employee" Relationship="Self.FK_Order_Employee" FromRole="Orders" ToRole="Employee" />
+    <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Orders" FromRole="Orders" ToRole="OrderItem" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ProductPrice" Type="Double" />
+    <Property Name="Quantity" Type="Int32" />
+    <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Product" FromRole="Product" ToRole="OrderItem" />
+  </EntityType>
+  <EntityType Name="View_Client">
+    <Key>
+      <PropertyRef Name="ClientID" />
+      <PropertyRef Name="ClientName" />
+    </Key>
+    <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ClientEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ClientPhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="ClientAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="View_Employee">
+    <Key>
+      <PropertyRef Name="EmployeeID" />
+      <PropertyRef Name="EmployeeName" />
+      <PropertyRef Name="HireDate" />
+    </Key>
+    <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployeeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EmployeeEmail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeePhone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="EmployeeSalary" Type="Double" />
+    <Property Name="HireDate" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityType Name="View_Orders">
+    <Key>
+      <PropertyRef Name="OrderID" />
+      <PropertyRef Name="ProductName" />
+      <PropertyRef Name="ClientName" />
+      <PropertyRef Name="OrderDate" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="ClientName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="TotalPrice" Type="Double" />
+  </EntityType>
+  <EntityType Name="View_Product">
+    <Key>
+      <PropertyRef Name="ProductID" />
+      <PropertyRef Name="ProductName" />
+    </Key>
+    <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ProductDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ProductPrice" Type="Double" />
+    <Property Name="Quantity" Type="Int32" />
+  </EntityType>
+  <Association Name="FK_Bill_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bill_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bill_Order">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="Bill" Type="Self.Bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="Bill">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Client">
+    <End Role="Client" Type="Self.Client" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="EmployeeID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="EmployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItem_Orders">
+    <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItem_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PiStoreDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="Bills" EntityType="Self.Bill" />
+    <EntitySet Name="Clients" EntityType="Self.Client" />
+    <EntitySet Name="Employees" EntityType="Self.Employee" />
+    <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="View_Client" EntityType="Self.View_Client" />
+    <EntitySet Name="View_Employee" EntityType="Self.View_Employee" />
+    <EntitySet Name="View_Orders" EntityType="Self.View_Orders" />
+    <EntitySet Name="View_Product" EntityType="Self.View_Product" />
+    <AssociationSet Name="FK_Bill_Client" Association="Self.FK_Bill_Client">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Bill" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bill_Employee" Association="Self.FK_Bill_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Bill" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bill_Order" Association="Self.FK_Bill_Order">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="Bill" EntitySet="Bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Client" Association="Self.FK_Order_Client">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
+      <End Role="Employee" EntitySet="Employees" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItem_Orders" Association="Self.FK_OrderItem_Orders">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItem_Product" Association="Self.FK_OrderItem_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+    <FunctionImport Name="sp_AddClient" ReturnType="Collection(Decimal)">
+      <Parameter Name="ClientID" Mode="In" Type="Int32" />
+      <Parameter Name="ClientName" Mode="In" Type="String" />
+      <Parameter Name="ClientEmail" Mode="In" Type="String" />
+      <Parameter Name="ClientPhone" Mode="In" Type="String" />
+      <Parameter Name="ClientAddress" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AddEmployee" ReturnType="Collection(Decimal)">
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeName" Mode="In" Type="String" />
+      <Parameter Name="EmployeeEmail" Mode="In" Type="String" />
+      <Parameter Name="EmployeePhone" Mode="In" Type="String" />
+      <Parameter Name="EmployeeAddress" Mode="In" Type="String" />
+      <Parameter Name="EmployeeSalary" Mode="In" Type="Double" />
+      <Parameter Name="HireDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_AddProduct" ReturnType="Collection(Decimal)">
+      <Parameter Name="ProductID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductName" Mode="In" Type="String" />
+      <Parameter Name="ProductDescription" Mode="In" Type="String" />
+      <Parameter Name="ProductPrice" Mode="In" Type="Double" />
+      <Parameter Name="Quantity" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DeleteClient">
+      <Parameter Name="ClientID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DeleteEmployee">
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DeleteProduct">
+      <Parameter Name="ProductID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdateClient">
+      <Parameter Name="ClientID" Mode="In" Type="Int32" />
+      <Parameter Name="ClientName" Mode="In" Type="String" />
+      <Parameter Name="ClientEmail" Mode="In" Type="String" />
+      <Parameter Name="ClientPhone" Mode="In" Type="String" />
+      <Parameter Name="ClientAddress" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdateEmployee">
+      <Parameter Name="EmployeeID" Mode="In" Type="Int32" />
+      <Parameter Name="EmployeeName" Mode="In" Type="String" />
+      <Parameter Name="EmployeeEmail" Mode="In" Type="String" />
+      <Parameter Name="EmployeePhone" Mode="In" Type="String" />
+      <Parameter Name="EmployeeAddress" Mode="In" Type="String" />
+      <Parameter Name="EmployeeSalary" Mode="In" Type="Double" />
+      <Parameter Name="HireDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdateProduct">
+      <Parameter Name="ProductID" Mode="In" Type="Int32" />
+      <Parameter Name="ProductName" Mode="In" Type="String" />
+      <Parameter Name="ProductDescription" Mode="In" Type="String" />
+      <Parameter Name="ProductPrice" Mode="In" Type="Double" />
+      <Parameter Name="Quantity" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spAccount" ReturnType="Collection(Int32)">
+      <Parameter Name="username" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>
